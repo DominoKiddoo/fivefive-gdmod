@@ -9,9 +9,6 @@ bool hasDoneThisAttempt = false;
 
 #include <fmod.hpp>
 class $modify(FiveFivePlayLayer, PlayLayer) {
-
-	
-
 	bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
 		if (!PlayLayer::init(level, useReplay, dontCreateObjects)) {
 			return false;
@@ -23,8 +20,8 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 		if (!Mod::get()->getSettingValue<bool>("onlyondeath")) {
 			this->schedule(schedule_selector(FiveFivePlayLayer::updateLogic));
 		}
-		
-		
+
+
 		return true;
 	}
 
@@ -33,7 +30,6 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 		PlayLayer::resetLevel();
 	}
 
-
 	void updateLogic(float dt) {
 		float percent = getCurrentPercent();
 		bool onlyOnDeath = Mod::get()->getSettingValue<bool>("onlyondeath");
@@ -41,13 +37,13 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 		if (GJBaseGameLayer::get()->m_isPlatformer) return;
 		if (GJBaseGameLayer::get()->m_isTestMode && !onlyOnDeath) return;
 		if (this->m_isPracticeMode && !onlyOnDeath) return;
-		
+
 		if (percent >= 55 && !hasDoneThisAttempt) {
 			log::info("onlyondeath: {}", onlyOnDeath);
 
 			if (onlyOnDeath) return;
 			pauseGame(false);
-			
+
 			auto pauseLayer = CCScene::get()->getChildByType<PauseLayer>(0);
 			if (!pauseLayer) return;
 			if (onlyOnDeath) return;
@@ -58,8 +54,7 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 					child->setVisible(false);
 				}
 			}
-			
-			
+
 			auto graphicSetup = CCSprite::create("fivefive.webp"_spr);
 			auto graphic = imgp::AnimatedSprite::from(graphicSetup);
 			graphic->setForceLoop(false);
@@ -80,14 +75,7 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 				} else {
 					graphic->setScale(2.0f);
 				}
-
-				
-				
-
 			}
-			
-	
-
 			hasDoneThisAttempt = true;
 		}
 	}
@@ -123,15 +111,14 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 			}
 		}
 		PlayLayer::destroyPlayer(player, cause);
-		
+
 	}
 
 	void setUpAndAddGraphic(float dt) {
 		pauseGame(false);
-		
+
 		auto pauseLayer = CCScene::get()->getChildByType<PauseLayer>(0);
 		if (!pauseLayer) return;
-
 
 		auto plChildren = pauseLayer->getChildren();
 		for (auto child : CCArrayExt<CCNode*>(plChildren)) {
@@ -139,8 +126,7 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 				child->setVisible(false);
 			}
 		}
-		
-		
+
 		auto graphicSetup = CCSprite::create("fivefive.webp"_spr);
 		auto graphic = imgp::AnimatedSprite::from(graphicSetup);
 		graphic->setForceLoop(false);
@@ -149,6 +135,7 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 		if (!OverlayManager::get()->getChildByID("fiveFiveAnim"_spr)) {
 			OverlayManager::get()->addChild(graphic);
 			addResumeButton();
+
 			auto winSize = CCDirector::get()->getWinSize();
 			graphic->setPosition(winSize / 2);
 			graphic->setID("fiveFiveAnim"_spr);
@@ -161,14 +148,12 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 			} else {
 				graphic->setScale(2.0f);
 			}
-			
-
-			
-
 		}
 	}
 
 	void addResumeButton() {
+		if (Mod::get()->getSettingValue<bool>("unskippable")) return;
+
 		auto winSize = CCDirector::get()->getWinSize();
 		auto buttonMenu = CCMenu::create();
 
@@ -197,8 +182,6 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
    		});
 	}
 };
-
-
 
 class $modify(FiveFivePauseLayer, PauseLayer) {
     struct Fields {
@@ -229,28 +212,24 @@ class $modify(FiveFivePauseLayer, PauseLayer) {
 						FMOD::Sound* sound = nullptr;
 						FMOD::Channel* channel = nullptr;
 						FMOD::System* system = FMODAudioEngine::sharedEngine()->m_system;
-										
+
 						system->createSound(geode::utils::string::pathToString(audioFile).c_str(), FMOD_DEFAULT, nullptr, &sound);
 						system->playSound(sound, nullptr, false, &m_fields->m_soundChannel);
 
 						if (m_fields->m_soundChannel) { // just to make sure its not null for whatever reason
 							m_fields->m_soundChannel->setVolume(Mod::get()->getSettingValue<float>("volume"));
 						}
-						this->scheduleOnce(schedule_selector(FiveFivePauseLayer::canUnpause), 1.0f);
-
-
-					
-												
+						
+						if (!Mod::get()->getSettingValue<bool>("unskippable")) this->scheduleOnce(schedule_selector(FiveFivePauseLayer::canUnpause), 1.0f);
 					}
 				}
 			}
 		});
     }
 
-
-
 	void onAnimFinished(CCNode* sender) {
         sender->removeFromParent();
+		m_fields->canUnpause = true;
         this->onResume(nullptr);
     }
 
@@ -266,7 +245,6 @@ class $modify(FiveFivePauseLayer, PauseLayer) {
 		} else {
 			m_fields->m_soundChannel->setPaused(true);
 			graphic->pause();
-
 		}
 		#endif
 		if (graphic->getCurrentFrame() >= graphic->getFrameCount() - 1) {
@@ -277,13 +255,11 @@ class $modify(FiveFivePauseLayer, PauseLayer) {
 				CCCallFuncN::create(this, callfuncN_selector(FiveFivePauseLayer::onAnimFinished)),
 				nullptr
 			));
-			
 		}
 	}
 
 	void canUnpause(float dt) {
 		m_fields->canUnpause = true;
-		
 		return;
 	}
 
@@ -291,5 +267,4 @@ class $modify(FiveFivePauseLayer, PauseLayer) {
 		if (!m_fields->canUnpause) return;
 		PauseLayer::onResume(sender);
 	}
-
 };

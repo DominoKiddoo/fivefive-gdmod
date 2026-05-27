@@ -50,6 +50,13 @@
 			"default": false,
 			"name": "Play Fullscreen",
 			"description": "Whether or not to play the video in full screen."
+		},
+
+		"unskippable":{
+			"type": "bool",
+			"default": false,
+			"name": "Unskippable",
+			"description": "Whether or not you can skip the video."
 		}
 	},
 
