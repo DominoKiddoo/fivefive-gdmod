@@ -43,8 +43,6 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 		if (this->m_isPracticeMode && !onlyOnDeath) return;
 		
 		if (percent >= 55 && !hasDoneThisAttempt) {
-			log::info("onlyondeath: {}", onlyOnDeath);
-
 			if (onlyOnDeath) return;
 			pauseGame(false);
 			
@@ -92,28 +90,33 @@ class $modify(FiveFivePlayLayer, PlayLayer) {
 		}
 	}
 
+	static void onModify(auto& self) {
+        (void) self.setHookPriority("PlayLayer::destroyPlayer", Priority::Late);
+    }
+	
 	void destroyPlayer(PlayerObject* player, GameObject* cause) {
+
+		PlayLayer::destroyPlayer(player, cause);
+
 		if (Mod::get()->getSettingValue<bool>("onlyondeath")) {
 			if (cause == m_anticheatSpike) {
-				PlayLayer::destroyPlayer(player, cause);
 				return;
 			}
-			log::info("runningfromdestroyplayer?");
+
+			if (!m_player1->m_isDead && !m_player2->m_isDead) {
+				return;
+			}
 			if (GJBaseGameLayer::get()->m_isPlatformer) {
-				PlayLayer::destroyPlayer(player, cause);
 				return;
 			}
 
 			if (GJBaseGameLayer::get()->m_isTestMode) {
-				PlayLayer::destroyPlayer(player, cause);
 				return;
 			}
 			if (this->m_isPracticeMode) {
-				PlayLayer::destroyPlayer(player, cause);
 				return;
 			}
 			if (player != m_player1 && player != m_player2) {
-				PlayLayer::destroyPlayer(player, cause);
 				return;
 			}
 

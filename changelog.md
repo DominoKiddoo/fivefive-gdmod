@@ -1,3 +1,6 @@
+# 1.1.2
+- Fixed bug where animation would trigger on noclip death
+
 # 1.1.1
 - Added option for fullscreen
 - Added button to resume level for mobile!
