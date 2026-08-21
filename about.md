@@ -6,10 +6,15 @@ Basically whenever you get to or die at <cy>55%</c> on a level, the game will pa
 
 When the game is paused to play the animation, you can still unpause the level <cy>and skip the animation</c> **after a one second cooldown**. This was added just in case you are in the middle of inputs when the animation starts.
 
-  
+
 You can also set it so it only plays when you die at <cy>55%</c>  
 
 **ENJOY!!**
+
+
+# <cg>VORTROX MODE</c>
+<cg>Vortrox Mode</c> is a new setting introduced in update <cy>1.2.0</c><br>
+You can turn on <cg>Vortrox Mode</c> from the setting to enable <cp>something special</c> upon death at <cb>92%</c>
 
 ## Bug reports
 DM me on discord (<c-00ff4c>@D</c><c-19ff5e>o</c><c-32ff6f>m</c><c-4bff81>i</c><c-64ff93>n</c><c-7dffa6>o</c><c-97ffba>K</c><c-b0ffcd>i</c><c-9effb1>d</c><c-77ff7f>d</c><c-50ff4c>o</c><c-29ff1a>o</c>)

@@ -1,3 +1,8 @@
+# 1.2.0
+- Added vortrox 92 as an optional setting
+- Made mobile resume button only trigger after anti-unpause cooldown
+- Added option to disable mobile button
+
 # 1.1.2
 - Fixed bug where animation would trigger on noclip death
 

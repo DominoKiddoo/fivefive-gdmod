@@ -8,18 +8,30 @@
 	},
 	"id": "dominodev.fivefive",
 	"name": "FIVE-FIVE",
-	"version": "v1.1.2",
+	"version": "v1.2.0",
 	"developer": "dominodev",
 	"description": "funny kingsammelot number go brr",
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3",
-		"prevter.imageplus": ">=v1.1.0"
+		"prevter.imageplus": ">=v1.1.0",
+		"fryy_55.amber": {
+			"version": ">=2.0.0",
+			"required": true
+    	}
+
 	},
 
 	"resources": {
 		"files": [
 			"resources/fivefive.mp3",
-			"resources/fivefive.webp"
+			"resources/fivefive.webp",
+			"resources/phobos.mp3",
+			"resources/phobos.webp",
+			"resources/fourtrucks.png",
+			"resources/samme.png",
+			"resources/fortrocks.jpg",
+			"resources/boom.mp3"
+			
 		]
 	},
 
@@ -50,6 +62,21 @@
 			"default": false,
 			"name": "Play Fullscreen",
 			"description": "Whether or not to play the video in full screen."
+		},
+
+		"mobilebutton": {
+			"type": "bool",
+			"default": false,
+			"name": "Hide Mobile Button",
+			"description": "hides button to skip animation on mobile"
+		},
+
+		"vortrox": {
+			"type": "bool",
+			"default": false,
+			"name": "Vortrox Mode",
+			"description": "makes vortrox play if you die at 98%",
+			"enable-if": "onlyondeath"
 		}
 	},
 
