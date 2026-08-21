@@ -1,5 +1,5 @@
 {
-	"geode": "5.8.2",
+	"geode": "5.9.0",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -8,7 +8,7 @@
 	},
 	"id": "dominodev.fivefive",
 	"name": "FIVE-FIVE",
-	"version": "v1.2.0",
+	"version": "v1.2.1",
 	"developer": "dominodev",
 	"description": "funny kingsammelot number go brr",
 	"dependencies": {
@@ -75,7 +75,7 @@
 			"type": "bool",
 			"default": false,
 			"name": "Vortrox Mode",
-			"description": "makes vortrox play if you die at 98%",
+			"description": "makes vortrox play if you die at 92%",
 			"enable-if": "onlyondeath"
 		}
 	},

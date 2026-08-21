@@ -1,3 +1,7 @@
+# 1.2.1
+- Fixed minor typos that were annoying me
+
+
 # 1.2.0
 - Added vortrox 92 as an optional setting
 - Made mobile resume button only trigger after anti-unpause cooldown

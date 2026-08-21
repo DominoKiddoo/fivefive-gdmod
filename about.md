@@ -13,7 +13,9 @@ You can also set it so it only plays when you die at <cy>55%</c>
 
 
 # <cg>VORTROX MODE</c>
-<cg>Vortrox Mode</c> is a new setting introduced in update <cy>1.2.0</c><br>
+<cg>Vortrox Mode</c> is a new setting introduced in update <cy>1.2.0</c>
+
+
 You can turn on <cg>Vortrox Mode</c> from the setting to enable <cp>something special</c> upon death at <cb>92%</c>
 
 ## Bug reports
